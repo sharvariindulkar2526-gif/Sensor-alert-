@@ -236,3 +236,240 @@ dataPoint.addEventListener("click", function(event) {
 
     console.log("Data Point clicked");
 });
+/* =====================================================
+   QUESTION 4
+   Collapsible Section and Dynamic Tooltip
+   ===================================================== */
+
+// Get Q4 elements
+const toggleSection =
+    document.getElementById("toggleSection");
+
+const detailsSection =
+    document.getElementById("detailsSection");
+
+const tooltipButton =
+    document.getElementById("tooltipButton");
+
+const tooltipInfo =
+    document.getElementById("tooltipInfo");
+
+
+// -----------------------------------------------------
+// 1. Collapsible Section
+// -----------------------------------------------------
+
+toggleSection.addEventListener("click", function() {
+
+    if (detailsSection.style.display === "none") {
+
+        detailsSection.style.display = "block";
+
+        toggleSection.textContent =
+            "Hide Details";
+
+    } else {
+
+        detailsSection.style.display = "none";
+
+        toggleSection.textContent =
+            "Show Details";
+    }
+
+});
+
+
+// -----------------------------------------------------
+// 2. Create Dynamic Tooltip
+// -----------------------------------------------------
+
+const dynamicTooltip =
+    document.createElement("div");
+
+dynamicTooltip.id = "dynamicTooltip";
+
+dynamicTooltip.textContent =
+    "Intelligent sensor information";
+
+
+// -----------------------------------------------------
+// 3. Add Tooltip to DOM using appendChild()
+// -----------------------------------------------------
+
+document.body.appendChild(dynamicTooltip);
+
+
+// -----------------------------------------------------
+// 4. Mouse Enter - Show Tooltip
+// -----------------------------------------------------
+
+tooltipButton.addEventListener("mouseenter", function(event) {
+
+    dynamicTooltip.style.display = "block";
+
+    dynamicTooltip.textContent =
+        "Intelligent Sensor: Monitoring Active";
+
+    tooltipInfo.textContent =
+        "Tooltip created dynamically using createElement() and appendChild().";
+
+});
+
+
+// -----------------------------------------------------
+// 5. Mouse Movement - Reposition Tooltip
+// -----------------------------------------------------
+
+tooltipButton.addEventListener("mousemove", function(event) {
+
+    const tooltipWidth =
+        dynamicTooltip.offsetWidth;
+
+    const tooltipHeight =
+        dynamicTooltip.offsetHeight;
+
+    let x = event.clientX + 15;
+    let y = event.clientY + 15;
+
+
+    // Keep tooltip inside the browser viewport
+
+    if (x + tooltipWidth > window.innerWidth) {
+
+        x = event.clientX - tooltipWidth - 15;
+
+    }
+
+    if (y + tooltipHeight > window.innerHeight) {
+
+        y = event.clientY - tooltipHeight - 15;
+
+    }
+
+
+    dynamicTooltip.style.left = x + "px";
+    dynamicTooltip.style.top = y + "px";
+
+});
+
+
+// -----------------------------------------------------
+// 6. Mouse Leave - Hide Tooltip
+// -----------------------------------------------------
+
+tooltipButton.addEventListener("mouseleave", function() {
+
+    dynamicTooltip.style.display = "none";
+
+    tooltipInfo.textContent =
+        "Move the mouse over the button to display the tooltip.";
+
+});
+
+
+// -----------------------------------------------------
+// 7. Demonstrate insertBefore()
+// -----------------------------------------------------
+
+const tooltipMessage =
+    document.createElement("small");
+
+tooltipMessage.textContent =
+    " Tooltip is dynamically generated.";
+
+tooltipMessage.style.display = "block";
+tooltipMessage.style.marginTop = "8px";
+
+detailsSection.insertBefore(
+    tooltipMessage,
+    tooltipButton
+);
+/* =====================================================
+   QUESTION 5
+   Asynchronous JSON Data Update
+   ===================================================== */
+
+const loadDataButton =
+    document.getElementById("loadData");
+
+const loadingMessage =
+    document.getElementById("loadingMessage");
+
+const backendResult =
+    document.getElementById("backendResult");
+
+const errorMessage =
+    document.getElementById("errorMessage");
+
+
+loadDataButton.addEventListener("click", function() {
+
+    // Clear previous messages
+    backendResult.innerHTML = "";
+    errorMessage.innerHTML = "";
+
+    // Show loading message
+    loadingMessage.textContent =
+        "Loading data from intelligent backend...";
+
+
+    // Simulate asynchronous HTTP response
+    setTimeout(function() {
+
+        try {
+
+            // Simulated JSON response
+            const jsonResponse = JSON.stringify({
+                status: "success",
+                sensor: "Temperature Sensor",
+                value: 82,
+                unit: "°C",
+                message: "Critical temperature detected"
+            });
+
+
+            // Parse JSON response
+            const data = JSON.parse(jsonResponse);
+
+
+            // Check backend status
+            if (data.status !== "success") {
+                throw new Error("Backend returned an error.");
+            }
+
+
+            // Display backend data
+            backendResult.innerHTML =
+                "<h3>Backend Response</h3>" +
+                "<p><strong>Sensor:</strong> " +
+                data.sensor + "</p>" +
+
+                "<p><strong>Value:</strong> " +
+                data.value + " " +
+                data.unit + "</p>" +
+
+                "<p><strong>Status:</strong> " +
+                data.status + "</p>" +
+
+                "<p><strong>Message:</strong> " +
+                data.message + "</p>";
+
+
+            // Remove loading message
+            loadingMessage.textContent =
+                "Data received successfully.";
+
+
+        } catch (error) {
+
+            // Client-side error handling
+            loadingMessage.textContent = "";
+
+            errorMessage.textContent =
+                "Error: " + error.message;
+
+        }
+
+    }, 1500);
+
+});
