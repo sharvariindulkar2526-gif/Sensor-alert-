@@ -114,3 +114,107 @@ th {
     border-radius: 6px;
     font-weight: bold;
 }
+/* =====================================================
+   QUESTION 4
+   Collapsible Section and Dynamic Tooltip
+   ===================================================== */
+
+/* Q4 Collapsible Section */
+
+#detailsSection {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #f3f8ff;
+    border: 2px solid #4a90e2;
+    border-radius: 8px;
+}
+
+#detailsSection h3 {
+    color: #2457a6;
+    margin-top: 0;
+}
+
+#detailsSection p {
+    line-height: 1.6;
+}
+
+
+/* Q4 Buttons */
+
+#toggleSection,
+#tooltipButton {
+    background-color: #4285f4;
+    color: white;
+    border: none;
+    padding: 12px 18px;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+#toggleSection:hover,
+#tooltipButton:hover {
+    background-color: #2865c7;
+}
+
+
+/* Dynamic Tooltip */
+
+#dynamicTooltip {
+    position: fixed;
+    display: none;
+    background-color: #222;
+    color: white;
+    padding: 10px 14px;
+    border-radius: 6px;
+    font-size: 14px;
+    z-index: 1000;
+    pointer-events: none;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
+}
+
+#tooltipInfo {
+    margin-top: 15px;
+    font-size: 14px;
+    color: #2457a6;
+}
+/* =====================================================
+   QUESTION 5
+   Asynchronous JSON Data Update
+   ===================================================== */
+
+#loadingMessage {
+    margin-top: 15px;
+    color: #2457a6;
+    font-weight: bold;
+}
+
+#backendResult {
+    margin-top: 15px;
+    padding: 15px;
+    background-color: #e8f5e9;
+    border: 2px solid #4caf50;
+    border-radius: 8px;
+}
+
+#errorMessage {
+    margin-top: 15px;
+    padding: 12px;
+    background-color: #ffebee;
+    border: 2px solid #e53935;
+    color: #b71c1c;
+    border-radius: 8px;
+}
+
+#loadData {
+    background-color: #4285f4;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+#loadData:hover {
+    background-color: #2865c7;
+        }
