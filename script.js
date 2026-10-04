@@ -97,3 +97,82 @@ document.getElementById("processSensors")
     document.getElementById("sensorResult").innerHTML = html;
 
 });
+/* =====================================================
+   QUESTION 2
+   NodeIterator and TreeWalker
+   ===================================================== */
+
+document.getElementById("scanNodes")
+.addEventListener("click", function() {
+
+    const dashboard =
+        document.getElementById("dashboard");
+
+    let offlineCount = 0;
+
+
+    // Create NodeIterator
+    const iterator = document.createNodeIterator(
+        dashboard,
+        NodeFilter.SHOW_ELEMENT
+    );
+
+
+    let currentNode;
+
+
+    // Scan elements using NodeIterator
+    while (currentNode = iterator.nextNode()) {
+
+        if (
+            currentNode.dataset &&
+            currentNode.dataset.status === "offline"
+        ) {
+
+            // Modify inline CSS
+            currentNode.style.fontWeight = "bold";
+
+            currentNode.style.border =
+                "3px solid orange";
+
+            // Add warning class
+            currentNode.classList.add("warning");
+
+            offlineCount++;
+        }
+    }
+
+
+    // Create TreeWalker
+    const walker = document.createTreeWalker(
+        dashboard,
+        NodeFilter.SHOW_ELEMENT
+    );
+
+
+    let node;
+
+
+    // Scan elements using TreeWalker
+    while (node = walker.nextNode()) {
+
+        if (
+            node.dataset &&
+            node.dataset.status === "offline"
+        ) {
+
+            // Add warning data attribute
+            node.setAttribute(
+                "data-warning",
+                "Offline Intelligent Node"
+            );
+        }
+    }
+
+
+    // Display result
+    document.getElementById("nodeResult").textContent =
+        offlineCount +
+        " offline intelligent node(s) detected and marked as warning.";
+
+});
