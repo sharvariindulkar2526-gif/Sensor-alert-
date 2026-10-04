@@ -74,3 +74,43 @@ th {
     color: #8a4b00;
     font-weight: bold;
 }
+/* =====================================================
+   QUESTION 3
+   Event Flow
+   ===================================================== */
+
+#chartArea {
+    background-color: #e3f2fd;
+    border: 3px solid #1976d2;
+    padding: 30px;
+    margin-top: 20px;
+    border-radius: 10px;
+}
+
+#chartBox {
+    background-color: #bbdefb;
+    border: 3px solid #1565c0;
+    padding: 30px;
+    border-radius: 10px;
+}
+
+#dataPoint {
+    background-color: #1976d2;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+#dataPoint:hover {
+    background-color: #0d47a1;
+}
+
+#eventResult {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #f5f5f5;
+    border-radius: 6px;
+    font-weight: bold;
+}
