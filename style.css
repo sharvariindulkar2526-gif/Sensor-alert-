@@ -185,8 +185,9 @@ th {
 
 #loadingMessage {
     margin-top: 15px;
-    color: #2457a6;
+    padding: 10px;
     font-weight: bold;
+    color: #2457a6;
 }
 
 #backendResult {
@@ -197,9 +198,18 @@ th {
     border-radius: 8px;
 }
 
+#backendResult h3 {
+    margin-top: 0;
+    color: #2e7d32;
+}
+
+#backendResult p {
+    margin: 8px 0;
+}
+
 #errorMessage {
     margin-top: 15px;
-    padding: 12px;
+    padding: 10px;
     background-color: #ffebee;
     border: 2px solid #e53935;
     color: #b71c1c;
@@ -217,4 +227,9 @@ th {
 
 #loadData:hover {
     background-color: #2865c7;
-        }
+}
+
+#loadData:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
