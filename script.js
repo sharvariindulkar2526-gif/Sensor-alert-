@@ -176,3 +176,63 @@ document.getElementById("scanNodes")
         " offline intelligent node(s) detected and marked as warning.";
 
 });
+/* =====================================================
+   QUESTION 3
+   Event Flow - Capturing and Bubbling
+   ===================================================== */
+
+const chartArea = document.getElementById("chartArea");
+const chartBox = document.getElementById("chartBox");
+const dataPoint = document.getElementById("dataPoint");
+const eventResult = document.getElementById("eventResult");
+
+
+// Capturing phase
+chartArea.addEventListener("click", function(event) {
+
+    console.log("Chart Area - Capturing");
+
+}, true);
+
+
+// Bubbling phase
+chartArea.addEventListener("click", function(event) {
+
+    console.log("Chart Area - Bubbling");
+
+});
+
+
+// Middle element
+chartBox.addEventListener("click", function(event) {
+
+    console.log("Chart Box - Bubbling");
+
+});
+
+
+// Data point
+dataPoint.addEventListener("click", function(event) {
+
+    // Prevent default button behaviour
+    event.preventDefault();
+
+    // Stop the event from continuing
+    event.stopPropagation();
+
+    // Extract event properties
+    const targetElement = event.target.id;
+    const eventType = event.type;
+    const mouseX = event.clientX;
+    const mouseY = event.clientY;
+
+    eventResult.innerHTML = `
+        Event Type: ${eventType}<br>
+        Target Element: ${targetElement}<br>
+        Mouse X Position: ${mouseX}px<br>
+        Mouse Y Position: ${mouseY}px<br>
+        Event Flow: Capturing → Target → Bubbling
+    `;
+
+    console.log("Data Point clicked");
+});
