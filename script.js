@@ -389,32 +389,29 @@ detailsSection.insertBefore(
    Asynchronous JSON Data Update
    ===================================================== */
 
-const loadDataButton =
-    document.getElementById("loadData");
-
-const loadingMessage =
-    document.getElementById("loadingMessage");
-
-const backendResult =
-    document.getElementById("backendResult");
-
-const errorMessage =
-    document.getElementById("errorMessage");
+const loadDataButton = document.getElementById("loadData");
+const loadingMessage = document.getElementById("loadingMessage");
+const backendResult = document.getElementById("backendResult");
+const errorMessage = document.getElementById("errorMessage");
 
 
-loadDataButton.addEventListener("click", function() {
+loadDataButton.addEventListener("click", function () {
 
     // Clear previous messages
+    loadingMessage.innerHTML = "";
     backendResult.innerHTML = "";
     errorMessage.innerHTML = "";
 
     // Show loading message
-    loadingMessage.textContent =
+    loadingMessage.innerHTML =
         "Loading data from intelligent backend...";
+
+    // Disable button while processing
+    loadDataButton.disabled = true;
 
 
     // Simulate asynchronous HTTP response
-    setTimeout(function() {
+    setTimeout(function () {
 
         try {
 
@@ -424,51 +421,72 @@ loadDataButton.addEventListener("click", function() {
                 sensor: "Temperature Sensor",
                 value: 82,
                 unit: "°C",
+                threshold: 75,
                 message: "Critical temperature detected"
             });
 
 
-            // Parse JSON response
+            // Parse JSON
             const data = JSON.parse(jsonResponse);
 
 
             // Check backend status
             if (data.status !== "success") {
-                throw new Error("Backend returned an error.");
+
+                throw new Error(
+                    "Unable to receive valid backend data."
+                );
+
             }
 
 
-            // Display backend data
-            backendResult.innerHTML =
-                "<h3>Backend Response</h3>" +
-                "<p><strong>Sensor:</strong> " +
-                data.sensor + "</p>" +
+            // Display JSON data
+            backendResult.innerHTML = `
+                <h3>Backend Response</h3>
 
-                "<p><strong>Value:</strong> " +
-                data.value + " " +
-                data.unit + "</p>" +
+                <p>
+                    <strong>Sensor:</strong>
+                    ${data.sensor}
+                </p>
 
-                "<p><strong>Status:</strong> " +
-                data.status + "</p>" +
+                <p>
+                    <strong>Current Value:</strong>
+                    ${data.value} ${data.unit}
+                </p>
 
-                "<p><strong>Message:</strong> " +
-                data.message + "</p>";
+                <p>
+                    <strong>Threshold:</strong>
+                    ${data.threshold} ${data.unit}
+                </p>
+
+                <p>
+                    <strong>Status:</strong>
+                    ${data.status}
+                </p>
+
+                <p>
+                    <strong>Message:</strong>
+                    ${data.message}
+                </p>
+            `;
 
 
-            // Remove loading message
-            loadingMessage.textContent =
+            // Success message
+            loadingMessage.innerHTML =
                 "Data received successfully.";
 
 
         } catch (error) {
 
             // Client-side error handling
-            loadingMessage.textContent = "";
-
-            errorMessage.textContent =
+            errorMessage.innerHTML =
                 "Error: " + error.message;
 
         }
+
+
+        // Enable button again
+        loadDataButton.disabled = false;
 
     }, 1500);
 
